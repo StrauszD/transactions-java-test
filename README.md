@@ -1,0 +1,1 @@
+# daniel-strausz-sample-java-test
