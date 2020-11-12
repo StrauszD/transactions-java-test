@@ -18,6 +18,7 @@ dependencies {
 	implementation 'org.ehcache:ehcache:3.8.1'
 	implementation 'javax.cache:cache-api:1.1.1'
 	implementation 'com.fasterxml.jackson.core:jackson-databind:2.11.1'
+	implementation 'junit:junit:4.12'
 	testImplementation('org.springframework.boot:spring-boot-starter-test') {
 		exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
 	}

@@ -16,6 +16,10 @@ This API returns exchange rates according to different sources.
 
 
 ## Deployment
+This API has been deployed to Heroku:
+
+**Host:** `https://clip-transactions.herokuapp.com/`
+
 To run the project locally with Docker you have to follow the following instructions
 
 First run the following command to generate the .jar:
