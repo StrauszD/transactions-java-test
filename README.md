@@ -142,8 +142,71 @@ This micro-service has four endpoints:
   
   cURL:
   ````shell script
-    curl --location --request GET 'localhost:8080/api/v1/transactions/sum/1'
-    ````  
+    curl --location --request GET 'localhost:8080/api/v1/transactions/sum/<user_id>'
+    ````
+* **Endpoint `{{host}}/api/v1/transactions/report/:userId, [GET]`**
 
+    This endpoint returns the report of all the transactions associated with the specified user_id. 
+    The report is grouped by weeks, where the week starts on a Friday and ends next Thursday.
+        
+    Response Body:
+    ```
+  [
+       {
+           "quantity": 3,
+           "amount": 75.5,
+           "user_id": 1,
+           "total_amount": 0.0,
+           "start_date": "2019-11-08",
+           "end_date": "2019-11-14"
+       },
+       {
+           "quantity": 3,
+           "amount": 43.3,
+           "user_id": 1,
+           "total_amount": 75.5,
+           "start_date": "2019-11-15",
+           "end_date": "2019-11-21"
+       },
+       {
+           "quantity": 3,
+           "amount": 120.1,
+           "user_id": 1,
+           "total_amount": 118.8,
+           "start_date": "2019-11-22",
+           "end_date": "2019-11-28"
+       },
+       {
+           "quantity": 1,
+           "amount": 60.45,
+           "user_id": 1,
+           "total_amount": 238.89999999999998,
+           "start_date": "2019-11-29",
+           "end_date": "2019-11-30"
+       },
+       {
+           "quantity": 1,
+           "amount": 99.99,
+           "user_id": 1,
+           "total_amount": 299.34999999999997,
+           "start_date": "2019-12-01",
+           "end_date": "2019-12-05"
+       },
+       {
+           "quantity": 1,
+           "amount": 10.0,
+           "user_id": 1,
+           "total_amount": 399.34,
+           "start_date": "2019-12-06",
+           "end_date": "2019-12-12"
+       }
+    ]
+  ```
+      
+  cURL:
+      
+    ````shell script
+    curl --location --request GET 'localhost:8080/api/v1/transactions/report/<user_id>'
+    ````
 ## Author
 - Daniel Strausz - danst.1199@gmail.com

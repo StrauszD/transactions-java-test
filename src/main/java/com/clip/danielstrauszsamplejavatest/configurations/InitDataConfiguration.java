@@ -19,16 +19,16 @@ public class InitDataConfiguration {
     public void initData() {
         ArrayList<Transaction> transactions = new ArrayList<>();
         Transaction transaction = new Transaction(UUID.randomUUID().toString(), 10.0, "Test", LocalDate.parse("2019-11-08"), 1L);
-        Transaction transaction1 = new Transaction(UUID.randomUUID().toString(), 10.0, "Test", LocalDate.parse("2019-11-09"), 1L);
-        Transaction transaction2 = new Transaction(UUID.randomUUID().toString(), 10.0, "Test", LocalDate.parse("2019-11-14"), 1L);
-        Transaction transaction3 = new Transaction(UUID.randomUUID().toString(), 10.0, "Test", LocalDate.parse("2019-11-17"), 1L);
+        Transaction transaction1 = new Transaction(UUID.randomUUID().toString(), 20.0, "Test", LocalDate.parse("2019-11-09"), 1L);
+        Transaction transaction2 = new Transaction(UUID.randomUUID().toString(), 45.50, "Test", LocalDate.parse("2019-11-14"), 1L);
+        Transaction transaction3 = new Transaction(UUID.randomUUID().toString(), 15.0, "Test", LocalDate.parse("2019-11-17"), 1L);
         Transaction transaction4 = new Transaction(UUID.randomUUID().toString(), 10.0, "Test", LocalDate.parse("2019-11-17"), 1L);
-        Transaction transaction5 = new Transaction(UUID.randomUUID().toString(), 10.0, "Test", LocalDate.parse("2019-11-19"), 1L);
+        Transaction transaction5 = new Transaction(UUID.randomUUID().toString(), 18.30, "Test", LocalDate.parse("2019-11-19"), 1L);
         Transaction transaction6 = new Transaction(UUID.randomUUID().toString(), 10.0, "Test", LocalDate.parse("2019-11-23"), 1L);
-        Transaction transaction7 = new Transaction(UUID.randomUUID().toString(), 10.0, "Test", LocalDate.parse("2019-11-25"), 1L);
+        Transaction transaction7 = new Transaction(UUID.randomUUID().toString(), 100.10, "Test", LocalDate.parse("2019-11-25"), 1L);
         Transaction transaction8 = new Transaction(UUID.randomUUID().toString(), 10.0, "Test", LocalDate.parse("2019-11-27"), 1L);
-        Transaction transaction9 = new Transaction(UUID.randomUUID().toString(), 10.0, "Test", LocalDate.parse("2019-11-30"), 1L);
-        Transaction transaction10 = new Transaction(UUID.randomUUID().toString(), 10.0, "Test", LocalDate.parse("2019-12-03"), 1L);
+        Transaction transaction9 = new Transaction(UUID.randomUUID().toString(), 60.45, "Test", LocalDate.parse("2019-11-30"), 1L);
+        Transaction transaction10 = new Transaction(UUID.randomUUID().toString(), 99.99, "Test", LocalDate.parse("2019-12-03"), 1L);
         Transaction transaction11 = new Transaction(UUID.randomUUID().toString(), 10.0, "Test", LocalDate.parse("2019-12-06"), 1L);
         transactions.add(transaction);
         transactions.add(transaction1);

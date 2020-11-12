@@ -11,9 +11,12 @@ import org.springframework.stereotype.Service;
 
 import java.time.DayOfWeek;
 import java.time.LocalDate;
+import java.time.ZoneId;
 import java.time.temporal.TemporalAdjusters;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Comparator;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.UUID;
 import java.util.concurrent.atomic.AtomicReference;
@@ -113,12 +116,54 @@ public class TransactionsService {
 
         ArrayList<Transaction> transactions = objectMapper.convertValue(cacheResult, new TypeReference<ArrayList<Transaction>>(){});
         transactions.sort(Comparator.comparing(Transaction::getDate));
-        LocalDate firstFriday = transactions.get(0).getDate().with(TemporalAdjusters.firstInMonth(DayOfWeek.FRIDAY));
+        DayOfWeek dayOfFirstTransaction = transactions.get(0).getDate().getDayOfWeek();
+        LocalDate weekStart = transactions.get(0).getDate();
         LocalDate lastDayOfTheMonth = transactions.get(0).getDate().with(TemporalAdjusters.lastDayOfMonth());
 
-        transactions.forEach(transaction -> {
+        if (!dayOfFirstTransaction.equals(DayOfWeek.FRIDAY)) {
+            Calendar cal = Calendar.getInstance();
+            cal.setTime(Date.from(transactions.get(0).getDate().atStartOfDay(ZoneId.systemDefault()).toInstant()));
+            cal.add(Calendar.WEEK_OF_YEAR, -1);
+            cal.set(Calendar.DAY_OF_WEEK, DayOfWeek.FRIDAY.getValue());
+            weekStart = cal.getTime().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        }
 
-        });
+        LocalDate weekEnd = weekStart.plusDays(6);
+        TransactionReport transactionReport = new TransactionReport(userId, 0, 0.0, 0.0, weekStart.toString(), weekEnd.toString());
+
+        for (Transaction transaction : transactions) {
+            if (transaction.getDate().compareTo(weekStart) >= 0 && transaction.getDate().compareTo(weekEnd) <= 0) {
+                transactionReport.setUserId(transaction.getUserId());
+                transactionReport.setAmount(transactionReport.getAmount() + transaction.getAmount());
+                transactionReport.setQuantity(transactionReport.getQuantity() + 1);
+                transactionReport.setStartDate(weekStart.toString());
+                transactionReport.setEndDate(weekEnd.toString());
+            } else {
+                reports.add(transactionReport);
+                weekStart = weekEnd.plusDays(1);
+                weekEnd = weekStart.plusDays(6);
+
+                if (!weekStart.getDayOfWeek().equals(DayOfWeek.FRIDAY)) {
+                    weekEnd = weekStart.with(TemporalAdjusters.next(DayOfWeek.THURSDAY));
+                }
+
+                if (weekEnd.isAfter(lastDayOfTheMonth)) {
+                    weekEnd = lastDayOfTheMonth;
+                    lastDayOfTheMonth = weekEnd.plusDays(1).with(TemporalAdjusters.lastDayOfMonth());
+                }
+
+                transactionReport = new TransactionReport(
+                    userId,
+                    1,
+                    transaction.getAmount(),
+                    transactionReport.getTotalAmount() + transactionReport.getAmount(),
+                    weekStart.toString(),
+                    weekEnd.toString()
+                );
+            }
+        }
+
+        reports.add(transactionReport);
 
         return reports;
     }
