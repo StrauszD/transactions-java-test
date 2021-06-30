@@ -1,6 +1,6 @@
 # Transactions API
 
-This API returns exchange rates according to different sources.
+This API lets you add transactions and get reports to mock a payments system.
 
 1. [Built With](#built-with)
 2. [Deployment](#deployment)
